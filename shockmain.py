@@ -7,7 +7,7 @@ import pygame,sys
 pygame.init()
 
 # create window
-mainDisplay = pygame.display.set_mode((500,))
+mainDisplay = pygame.display.set_mode((500,500))
 while True: # main loop
     # quit if window closed
     for event in pygame.event.get():
