@@ -1,4 +1,4 @@
-from shockmain import *
+from shockobjs import *
 
 BGCOLOR = (255,255,255)
 
