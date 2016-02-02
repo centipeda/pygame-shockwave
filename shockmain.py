@@ -7,10 +7,16 @@ import pygame,sys
 pygame.init()
 
 BGCOLOR = (255,255,255)
-
+DEFTILECOLOR = (255,0,0)
+FLIPTILECOLOR = (0,255,255)
+XMARGIN = 20
+YMARGIN = 20
+XTILEGAP = 2
+YTILEGAP = 2
 # create window
-mainDisplay = pygame.display.set_mode((500,500))
+SCREEN = pygame.display.set_mode((500,500))
 pygame.display.set_caption('Shockwave')
+SCREEN.fill(BGCOLOR)
 
 while True: # main loop
 
@@ -18,12 +24,16 @@ while True: # main loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            sys.exit()
     
     pygame.display.update()
 
 class Tile():
     def __init__(self):
-        pass
+        self.colored = False
+        self.height = 5
+        self.width = 5
+        self.rect = rect
 
 class Grid(array):
     def __init__(self):
@@ -60,3 +70,13 @@ def create_grid(width,height):
         fullG.append(row)
         r += 1
     return Grid(fullG)
+
+def assign_rects(surface,grid):
+    basex = 0
+    basy = 0
+    for row in grid:
+        for tile in row:
+            tile.rect = Rect(basex + XMARGIN,basey + YMARGIN,
+                             tile.width,tile.height)
+            basex += (XTILEGAP + tile.width)
+        basey += (YTILEGAP + tile.height)
