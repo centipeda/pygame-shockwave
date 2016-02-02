@@ -4,40 +4,25 @@ Shockwave is a simple game that is based on flipping tiles in a square grid.
 """
 
 import pygame,sys
-pygame.init()
 
-BGCOLOR = (255,255,255)
 DEFTILECOLOR = (255,0,0)
 FLIPTILECOLOR = (0,255,255)
-XMARGIN = 20
-YMARGIN = 20
-XTILEGAP = 2
-YTILEGAP = 2
-# create window
-SCREEN = pygame.display.set_mode((500,500))
-pygame.display.set_caption('Shockwave')
-SCREEN.fill(BGCOLOR)
-
-while True: # main loop
-
-    # quit if window closed
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-    
-    pygame.display.update()
+XMARGIN = 100
+YMARGIN = 100
+XTILEGAP = 10
+YTILEGAP = 10
+GRIDSIZE = 5
 
 class Tile():
     def __init__(self):
         self.colored = False
-        self.height = 5
-        self.width = 5
-        self.rect = rect
+        self.height = 50
+        self.width = 50
+        self.rect = None
 
-class Grid(array):
-    def __init__(self):
-        self.grid = array
+class Grid():
+    def __init__(self,grid):
+        self.grid = grid
         self.width = len(self.grid[0])
         self.height = len(self.grid)
         
@@ -71,12 +56,18 @@ def create_grid(width,height):
         r += 1
     return Grid(fullG)
 
-def assign_rects(surface,grid):
-    basex = 0
-    basy = 0
+def assign_rects(grid):
+    basex = 1
+    basey = 1
     for row in grid:
         for tile in row:
-            tile.rect = Rect(basex + XMARGIN,basey + YMARGIN,
+            tile.rect = pygame.Rect(basex + XMARGIN,basey + YMARGIN,
                              tile.width,tile.height)
             basex += (XTILEGAP + tile.width)
+        basex = 1
         basey += (YTILEGAP + tile.height)
+
+def draw_grid(grid,surface):
+    for row in grid:
+        for tile in row:
+            pygame.draw.rect(surface,DEFTILECOLOR,tile.rect)
