@@ -1,7 +1,4 @@
-"""There isn't going to be much here for a while.
-
-Shockwave is a simple game that is based on flipping tiles in a square grid.
-"""
+"""Shockwave is a simple game that is based on flipping tiles in a square grid."""
 
 import pygame,sys
 
@@ -14,12 +11,13 @@ YTILEGAP = 10
 GRIDSIZE = 5
 
 class Tile():
-    def __init__(self):
+    def __init__(self,gridrow,gridcol):
         self.colored = False
         self.height = 50
         self.width = 50
         self.rect = None
-
+        self.gridrow = gridrow
+        self.gridcol = gridcol
 class Grid():
     def __init__(self,grid):
         self.grid = grid
@@ -27,19 +25,28 @@ class Grid():
         self.height = len(self.grid)
         
     def get_row(self,row):
-        pass
+        return self.grid[row]
     
     def get_column(self,column):
-        pass
+        c = []
+        for r in self.grid:
+            c.append(r[column])
+        return c
 
     def get_tile(self,row,column):
-        pass
-
-    def is_colored(self,tile):
-        pass
+        return self.grid[row][column]
 
     def flip_tile(self,tile):
-        pass
+        tile.colored = not tile.colored
+
+    def flip_row(self, row):
+        for tile in self.grid[row]:
+            self.flip_tile(tile)
+                     
+    def flip_column(self, column):
+        for row in self.grid:
+            self.flip_tile(row[column])
+
 
 def create_grid(width,height):
     # Creates multidimensional array of Tile objects.
@@ -50,8 +57,9 @@ def create_grid(width,height):
     for row in range(height):
         row = []
         for column in range(width):
-            row.append(Tile())
+            row.append(Tile(r,c))
             c += 1
+        c = 0
         fullG.append(row)
         r += 1
     return Grid(fullG)
@@ -62,7 +70,7 @@ def assign_rects(grid):
     for row in grid:
         for tile in row:
             tile.rect = pygame.Rect(basex + XMARGIN,basey + YMARGIN,
-                             tile.width,tile.height)
+       tile.width,tile.height)
             basex += (XTILEGAP + tile.width)
         basex = 1
         basey += (YTILEGAP + tile.height)
@@ -71,3 +79,11 @@ def draw_grid(grid,surface):
     for row in grid:
         for tile in row:
             pygame.draw.rect(surface,DEFTILECOLOR,tile.rect)
+
+def tile_at_location(grid,coords):
+    for row in grid.grid:
+        for tile in row:
+            if tile.rect.collidepoint(coords[0],coords[1]):
+                print tile
+                return tile
+    return False
