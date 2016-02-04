@@ -1,6 +1,10 @@
 """Shockwave is a simple game that is based on flipping tiles in a square grid."""
 
-import pygame,sys
+import sys
+import random
+
+import pygame
+
 
 DEFTILECOLOR = (255,0,0)
 FLIPTILECOLOR = (0,255,255)
@@ -46,7 +50,13 @@ class Grid():
     def flip_column(self, column):
         for row in self.grid:
             self.flip_tile(row[column])
-
+    
+    def randomize_tiles(self):
+        for row in self.grid:
+            for tile in row:
+                if random.randint(0,1) == 1:
+                    self.flip_row(tile.gridrow)
+                    self.flip_column(tile.gridcol)
 
 def create_grid(width,height):
     # Creates multidimensional array of Tile objects.
@@ -84,6 +94,5 @@ def tile_at_location(grid,coords):
     for row in grid.grid:
         for tile in row:
             if tile.rect.collidepoint(coords[0],coords[1]):
-                print tile
                 return tile
     return False

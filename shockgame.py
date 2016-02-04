@@ -14,6 +14,9 @@ mainGrid = create_grid(GRIDSIZE,GRIDSIZE)
 assign_rects(mainGrid.grid)
 draw_grid(mainGrid.grid,SCREEN)
 
+# randomize game grid
+mainGrid.randomize_tiles()
+
 while True: # main loop
     clickCoords = None
     # quit if window closed
