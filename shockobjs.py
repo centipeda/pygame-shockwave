@@ -1,44 +1,42 @@
-"""Shockwave is a simple game that is based on flipping tiles in a square grid."""
+"""Shockwave is a simple game, in which the objective is to make all the tiles the same color."""
 
 import sys
 import random
-
 import pygame
 
+# color constants
+DEFTILECOLOR = (16,178,232)
+FLIPTILECOLOR = (70,232,16)
+BGCOLOR = (0,0,0)
 
-DEFTILECOLOR = (255,0,0)
-FLIPTILECOLOR = (0,255,255)
-XMARGIN = 100
-YMARGIN = 100
-XTILEGAP = 10
-YTILEGAP = 10
-GRIDSIZE = 5
+# size-related constants
+GRIDSIZE = 20
+XMARGIN = 50
+YMARGIN = 50
+XTILEGAP = 2
+YTILEGAP = 2
+TILEWIDTH = 20
+TILEHEIGHT = 20
+WINSIZE = ((XMARGIN * 2) + ((TILEWIDTH + XTILEGAP) * GRIDSIZE))
 
 class Tile():
+    """Represents the colored squares in the game."""
+
     def __init__(self,gridrow,gridcol):
         self.colored = False
-        self.height = 50
-        self.width = 50
+        self.height = TILEHEIGHT
+        self.width = TILEWIDTH
         self.rect = None
         self.gridrow = gridrow
         self.gridcol = gridcol
+
 class Grid():
+    """Represents the grid of tiles in the game."""
+
     def __init__(self,grid):
         self.grid = grid
         self.width = len(self.grid[0])
         self.height = len(self.grid)
-        
-    def get_row(self,row):
-        return self.grid[row]
-    
-    def get_column(self,column):
-        c = []
-        for r in self.grid:
-            c.append(r[column])
-        return c
-
-    def get_tile(self,row,column):
-        return self.grid[row][column]
 
     def flip_tile(self,tile):
         tile.colored = not tile.colored
@@ -59,7 +57,7 @@ class Grid():
                     self.flip_column(tile.gridcol)
 
 def create_grid(width,height):
-    # Creates multidimensional array of Tile objects.
+    """Creates multidimensional array of Tile objects."""
     fullG = []
     # Used for incrementing.
     r = 0
@@ -75,22 +73,26 @@ def create_grid(width,height):
     return Grid(fullG)
 
 def assign_rects(grid):
-    basex = 1
-    basey = 1
+    """Assigns Rect objects to each of the Tiles in a Grid."""
+    basex = 0
+    basey = 0
+
     for row in grid:
         for tile in row:
             tile.rect = pygame.Rect(basex + XMARGIN,basey + YMARGIN,
        tile.width,tile.height)
             basex += (XTILEGAP + tile.width)
-        basex = 1
+        basex = 0
         basey += (YTILEGAP + tile.height)
 
 def draw_grid(grid,surface):
+    """Draws Tiles to a surface from a Grid object."""
     for row in grid:
         for tile in row:
             pygame.draw.rect(surface,DEFTILECOLOR,tile.rect)
 
 def tile_at_location(grid,coords):
+    """Checks if a tile is at a given coordinate."""
     for row in grid.grid:
         for tile in row:
             if tile.rect.collidepoint(coords[0],coords[1]):

@@ -1,11 +1,10 @@
 from shockobjs import *
 import pygame
-BGCOLOR = (255,255,255)
 
 pygame.init()
 
 # create window
-SCREEN = pygame.display.set_mode((500,500))
+SCREEN = pygame.display.set_mode((WINSIZE,WINSIZE))
 pygame.display.set_caption('Shockwave')
 SCREEN.fill(BGCOLOR)
 
@@ -27,6 +26,7 @@ while True: # main loop
         elif event.type == pygame.MOUSEBUTTONUP:
             clickCoords = event.pos
     
+    # Checks if there's a tile at the clicked location.
     if clickCoords is not None:
         clickedTile = tile_at_location(mainGrid,clickCoords)
         if clickedTile is not False:
@@ -35,7 +35,9 @@ while True: # main loop
                     if clickedTile == tile:
                         mainGrid.flip_row(clickedTile.gridrow)
                         mainGrid.flip_column(clickedTile.gridcol)
-
+    
+    # Flips all tiles in a given clicked tile's row and column,
+    # except for the one clicked.
     for row in mainGrid.grid:
         for tile in row:
             if tile.colored:
