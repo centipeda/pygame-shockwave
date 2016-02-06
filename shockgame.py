@@ -18,6 +18,10 @@ def main():
     mainGrid.assign_rects()
     mainGrid.draw_grid(SCREEN)
 
+    # draw score counter
+    scorecount = Score()
+    scorerect = SCREEN.blit(scorecount.render(),(5,5))
+
     # randomize game grid
     mainGrid.randomize_tiles()
 
@@ -43,6 +47,12 @@ def main():
                             play_beep()
                             mainGrid.flip_row(clickedTile.gridrow)
                             mainGrid.flip_column(clickedTile.gridcol)
+                            scorecount.count += 1
+
+        # Updates score count on board.
+        if not won:
+            SCREEN.fill(BGCOLOR,rect=scorerect)
+            scorerect = SCREEN.blit(scorecount.render(),(5,5))
         
 
         # Updates colors of tiles in board.
@@ -55,7 +65,7 @@ def main():
         
         # Checks if game is finished.
         if game_won(mainGrid) and not won:
-            print "Won."
+            print "Game won in {} moves.".format(scorecount.count)
             won = True
 
         pygame.display.update()

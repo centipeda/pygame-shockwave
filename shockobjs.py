@@ -10,7 +10,9 @@ NAME = "Shockwave"
 # color constants
 DEFTILECOLOR = (16,178,232)
 FLIPTILECOLOR = (70,232,16)
-BGCOLOR = (0,0,0)
+BLACK = (0,0,0)
+WHITE = (255,255,255)
+BGCOLOR = BLACK
 
 # size-related constants
 GRIDH = 5
@@ -27,7 +29,14 @@ WINH = ((YMARGIN * 2) + ((TILEHEIGHT + YTILEGAP) * GRIDH))
 
 class Score():
     def __init__(self):
-        pass
+        self.count = 0
+        self.font = None
+        self.size = 30
+        self.text = pygame.font.Font(self.font,self.size)
+
+    def render(self):
+        txtsurf = self.text.render(str(self.count),False,WHITE)
+        return txtsurf
 
 class Tile():
     """Represents the colored squares in the game."""
