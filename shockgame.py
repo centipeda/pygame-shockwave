@@ -8,6 +8,7 @@ pygame.init()
 # All constants referenced are stored in the shockobjs.py file.
 
 def main():
+
     # Creating window.
     SCREEN = pygame.display.set_mode((WINW,WINH))
     pygame.display.set_caption(NAME)

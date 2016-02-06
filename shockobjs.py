@@ -15,15 +15,15 @@ WHITE = (255,255,255)
 BGCOLOR = BLACK
 
 # size-related constants
-GRIDH = 5
-GRIDW = 5
+GRIDH = 11
+GRIDW = 11
 XMARGIN = 40
 YMARGIN = 40
 XTILEGAP = 2
 YTILEGAP = 2
 TILEWIDTH = 30
 TILEHEIGHT = 30
-# centers grid in window
+# fits window size to grid
 WINW = ((XMARGIN * 2) + ((TILEWIDTH + XTILEGAP) * GRIDW))
 WINH = ((YMARGIN * 2) + ((TILEHEIGHT + YTILEGAP) * GRIDH))
 FONTSIZE = WINH / 10
