@@ -38,6 +38,10 @@ class Score():
         txtsurf = self.text.render(str(self.count),False,WHITE)
         return txtsurf
 
+    def renderwin(self):
+        txtsurf = self.text.render("Game won!",True,WHITE)
+        return txtsurf
+
 class Tile():
     """Represents the colored squares in the game."""
 

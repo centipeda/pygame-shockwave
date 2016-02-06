@@ -53,6 +53,9 @@ def main():
         if not won:
             SCREEN.fill(BGCOLOR,rect=scorerect)
             scorerect = SCREEN.blit(scorecount.render(),(5,5))
+        else:
+            SCREEN.fill(BGCOLOR,rect=scorerect)
+            scorerect = SCREEN.blit(scorecount.renderwin(),(5,5))
         
 
         # Updates colors of tiles in board.
