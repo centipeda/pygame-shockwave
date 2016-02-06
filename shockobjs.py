@@ -26,20 +26,27 @@ TILEHEIGHT = 30
 # centers grid in window
 WINW = ((XMARGIN * 2) + ((TILEWIDTH + XTILEGAP) * GRIDW))
 WINH = ((YMARGIN * 2) + ((TILEHEIGHT + YTILEGAP) * GRIDH))
+FONTSIZE = WINH / 10
 
 class Score():
     def __init__(self):
         self.count = 0
         self.font = None
-        self.size = 30
-        self.text = pygame.font.Font(self.font,self.size)
+        self.size = 20
+        self.text = pygame.font.Font(self.font,FONTSIZE)
 
     def render(self):
         txtsurf = self.text.render(str(self.count),False,WHITE)
         return txtsurf
 
     def renderwin(self):
-        txtsurf = self.text.render("Game won!",True,WHITE)
+        if self.count > 1:
+            recount = self.count
+            vicmesg = "Game won in {} moves.".format(recount)
+        else:
+            vicmesg = "Game won in 1 move."
+
+        txtsurf = self.text.render(vicmesg,True,WHITE)
         return txtsurf
 
 class Tile():
