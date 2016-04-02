@@ -1,6 +1,5 @@
 """Shockwave is a simple game in which the objective is to make all the tiles the same color."""
 
-import sys
 import random
 import pygame
 
@@ -8,25 +7,26 @@ import pygame
 NAME = "Shockwave"
 
 # color constants
-DEFTILECOLOR = (16,178,232)
-FLIPTILECOLOR = (70,232,16)
+def random_color():
+    return (random.randint(0,255),random.randint(0,255),random.randint(0,255))
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 BGCOLOR = BLACK
+DEFTILECOLOR = random_color()
+FLIPTILECOLOR = random_color()
 
 # size-related constants
-GRIDH = 11
-GRIDW = 11
+GRIDH = 10
+GRIDW = 10
 XMARGIN = 40
 YMARGIN = 40
-XTILEGAP = 2
-YTILEGAP = 2
+TILEGAP = 2
 TILEWIDTH = 30
 TILEHEIGHT = 30
 # fits window size to grid
-WINW = ((XMARGIN * 2) + ((TILEWIDTH + XTILEGAP) * GRIDW))
-WINH = ((YMARGIN * 2) + ((TILEHEIGHT + YTILEGAP) * GRIDH))
-FONTSIZE = WINH / 10
+WINW = ((XMARGIN * 2) + ((TILEWIDTH + TILEGAP) * GRIDW))
+WINH = ((YMARGIN * 2) + ((TILEHEIGHT + TILEGAP) * GRIDH))
+FONTSIZE = 30
 
 class Score():
     def __init__(self):
@@ -82,8 +82,20 @@ class Grid():
         for row in self.grid:
             self.flip_tile(row[column])
     
+    def flip_relative(self,row,column,direction,dist):
+        """Flips a tile dist tiles away from the Tile location
+        dictated by row & column, in direction."""
+        if direction == "left":
+            self.flip_tile(self.grid[row][column - dist])
+        elif direction == "right":
+            self.flip_tile(self.grid[row][column + dist])
+        elif direction == "up":
+            self.flip_tile(self.grid[row - dist][column])
+        elif direction == "down":
+            self.flip_tile(self.grid[row + dist][column])
+    
     def randomize_tiles(self):
-        """Randomizes grid tiles in a way that's still solvable."""
+        """Randomizes grid tiles in a way that's solvable."""
         for row in self.grid:
             for tile in row:
                 if random.randint(0,1) == 1:
@@ -99,9 +111,9 @@ class Grid():
                 tile.rect = pygame.Rect(basex + XMARGIN,
                                         basey + YMARGIN,
                                         tile.width,tile.height)
-                basex += (XTILEGAP + tile.width)
+                basex += (TILEGAP + tile.width)
             basex = 0
-            basey += (YTILEGAP + tile.height)
+            basey += (TILEGAP + tile.height)
       
     def draw_grid(self,surface):
         """Draws Tiles to a surface from a Grid object."""
@@ -146,3 +158,4 @@ def game_won(grid):
 def play_beep():
     beep = pygame.mixer.Sound('beep.wav')
     beep.play()
+    
