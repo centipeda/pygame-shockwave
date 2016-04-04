@@ -1,22 +1,14 @@
 #!/usr/bin/env python
 
-from shockobjs import *
+import sys
 import pygame
-
 pygame.init()
+from shockconst import *
+from shockobjs import *
 
-# All constants referenced are stored in the shockobjs.py file.
-
-def main():
-
-    # Creating window.
-    SCREEN = pygame.display.set_mode((WINW,WINH))
-    pygame.display.set_caption(NAME)
-    SCREEN.fill(BGCOLOR)
+def begin_round():
 
     # Limits.
-    FPS = 30
-    FLIPFRAME = 2
     frame = 0
     fpsClock = pygame.time.Clock()
 
@@ -118,6 +110,14 @@ def main():
         frame += 1
         pygame.display.update()
         fpsClock.tick(FPS)
+
+def main():
+    # Creating window.
+    SCREEN = pygame.display.set_mode((WINW,WINH))
+    pygame.display.set_caption(NAME)
+    SCREEN.fill(BGCOLOR)
+
+    begin_round()
 
 if __name__ == "__main__":
     main()

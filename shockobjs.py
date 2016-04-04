@@ -2,47 +2,23 @@
 
 import random
 import pygame
-
-# miscellaneous constants
-NAME = "Shockwave"
-
-# color constants
-def random_color():
-    return (random.randint(0,255),random.randint(0,255),random.randint(0,255))
-BLACK = (0,0,0)
-WHITE = (255,255,255)
-BGCOLOR = BLACK
-DEFTILECOLOR = random_color()
-FLIPTILECOLOR = random_color()
-
-# size-related constants
-GRIDH = 10
-GRIDW = 10
-XMARGIN = 40
-YMARGIN = 40
-TILEGAP = 2
-TILEWIDTH = 30
-TILEHEIGHT = 30
-# fits window size to grid
-WINW = ((XMARGIN * 2) + ((TILEWIDTH + TILEGAP) * GRIDW))
-WINH = ((YMARGIN * 2) + ((TILEHEIGHT + TILEGAP) * GRIDH))
-FONTSIZE = 30
+from shockconst import *
 
 class Score():
     def __init__(self):
-        self.count = 0
+        self.score = 0
         self.font = None
         self.size = 20
         self.text = pygame.font.Font(self.font,FONTSIZE)
+        self.color = SCORECOLOR
 
     def render(self):
-        txtsurf = self.text.render(str(self.count),False,WHITE)
+        txtsurf = self.text.render(str(self.score),False,self.color)
         return txtsurf
 
     def renderwin(self):
-        if self.count > 1:
-            recount = self.count
-            vicmesg = "Game won in {} moves.".format(recount)
+        if self.score > 1:
+            vicmesg = "Game won in {} moves.".format(self.score)
         else:
             vicmesg = "Game won in 1 move."
 
