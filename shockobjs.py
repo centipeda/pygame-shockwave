@@ -7,9 +7,8 @@ from shockconst import *
 class Score():
     def __init__(self):
         self.score = 0
-        self.font = None
-        self.size = 20
-        self.text = pygame.font.Font(self.font,FONTSIZE)
+        self.font = "comicsansms"
+        self.text = pygame.font.SysFont(self.font,FONTSIZE)
         self.color = SCORECOLOR
 
     def render(self):

@@ -3,7 +3,7 @@ import random
 import pygame
 
 # Engine constants
-FPS = 30
+FPS = 60
 FLIPFRAME = 2
 
 # miscellaneous constants
@@ -22,7 +22,7 @@ FLIPTILECOLOR = random_color()
 SCORECOLOR = WHITE
 
 # size-related constants
-FONTSIZE = 30
+FONTSIZE = 20
 GRIDH = 10
 GRIDW = 10
 XMARGIN = 40

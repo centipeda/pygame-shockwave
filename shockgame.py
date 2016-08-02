@@ -57,18 +57,18 @@ def begin_round():
                 dist = 1
                 clrow = clickedTile.gridrow
                 clcol = clickedTile.gridcol
-                scorecount.count += 1
+                scorecount.score += 1
 
         # Updates score count on board, or displays victory message.
         if not won:
             SCREEN.fill(BGCOLOR,rect=scorerect)
             scorerect = SCREEN.blit(scorecount.render(),(5,5))
-        
+
         # Incrementally updates tiles.
         if (flipping is True) and (frame % FLIPFRAME == 0):
             if done["left"] is False and (clcol - dist >= 0):
                 mainGrid.flip_relative(clrow,clcol,"left",dist)
-            else: 
+            else:
                 done["left"] = True
             if done["right"] is False and (clcol + dist < GRIDW):
                 mainGrid.flip_relative(clrow,clcol,"right",dist)
@@ -82,7 +82,7 @@ def begin_round():
                 mainGrid.flip_relative(clrow,clcol,"down",dist)
             else:
                 done["down"] = True
-        
+
         if set(done.values()) == set([True]): # if all of done is True
             flipping = False
             done["left"] = False
@@ -99,7 +99,7 @@ def begin_round():
                     SCREEN.fill(FLIPTILECOLOR,rect=tile.rect)
                 else:
                     SCREEN.fill(DEFTILECOLOR,rect=tile.rect)
-        
+
         # Checks if game is finished.
         if game_won(mainGrid) and not won:
             won = True
